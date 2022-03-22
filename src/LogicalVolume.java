@@ -11,8 +11,8 @@ public class LogicalVolume extends Volume {
         allLogicalVolumes.add(this);
     }
 
-    public LogicalVolume(int sizeGB, String name) {
-        super(sizeGB, name);
+    public LogicalVolume(int sizeGB, String name, String uuid) {
+        super(sizeGB, name, uuid);
         allLogicalVolumes.add(this);
     }
 

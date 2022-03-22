@@ -17,8 +17,8 @@ public class VolumeGroup extends Volume {
         allGroups.add(this);
     }
 
-    public VolumeGroup(String name) {
-        super(0, name);
+    public VolumeGroup(String name, String uuid) {
+        super(0, name, uuid);
         physicalVolumes = new ArrayList<PhysicalVolume>();
         logicalVolumes = new ArrayList<LogicalVolume>();
         remainingSpace = 0;

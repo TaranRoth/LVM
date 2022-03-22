@@ -12,8 +12,8 @@ public class PhysicalVolume extends Volume {
         allPhysicalVolumes.add(this);
     }
 
-    public PhysicalVolume(String name) {
-        super(0, name);
+    public PhysicalVolume(String name, String uuid) {
+        super(0, name, uuid);
         allPhysicalVolumes.add(this);
     }
 

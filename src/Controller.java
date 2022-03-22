@@ -267,19 +267,22 @@ public class Controller {
             }
             JSONObject physicalVolumes = (JSONObject) data.get("physicalVolumes");
             names = (ArrayList<String>) physicalVolumes.get("names");
+            ArrayList<String> uuids = (ArrayList<String>) physicalVolumes.get("uuids");
             for (int i = 0; i < names.size(); i++) {
-                new PhysicalVolume(names.get(i));
+                new PhysicalVolume(names.get(i), uuids.get(i));
             }
             JSONObject volumeGroups = (JSONObject) data.get("volumeGroups");
             names = (ArrayList<String>) volumeGroups.get("names");
+            uuids = (ArrayList<String>) volumeGroups.get("uuids");
             for (int i = 0; i < names.size(); i++) {
-                new VolumeGroup(names.get(i));
+                new VolumeGroup(names.get(i), uuids.get(i));
             }
             JSONObject logicalVolumes = (JSONObject) data.get("logicalVolumes");
             names = (ArrayList<String>) logicalVolumes.get("names");
-            sizes = (ArrayList<Long>) drives.get("sizes");
+            sizes = (ArrayList<Long>) logicalVolumes.get("sizes");
+            uuids = (ArrayList<String>) logicalVolumes.get("uuids");
             for (int i = 0; i < names.size(); i++) {
-                new LogicalVolume(sizes.get(i).intValue(), names.get(i));
+                new LogicalVolume(sizes.get(i).intValue(), names.get(i), uuids.get(i));
             }
             ArrayList<String> pVolumes = (ArrayList<String>) drives.get("physicalVolumes");
             for (int i = 0; i < pVolumes.size(); i++) {
