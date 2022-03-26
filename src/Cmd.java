@@ -1,15 +1,48 @@
 package src;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Cmd {
     public static void main(String[] args) {
-        Controller c = new Controller();
-        c.loadData();
         Scanner s = new Scanner(System.in);
+        File dataFolder = new File("data");
+        File[] listOfFiles = dataFolder.listFiles();
+        int co = 1;
+        String fileName = "";
+        boolean emptyProfile = true;
+        if (listOfFiles.length > 0) {
+            System.out.println("Select a profile (enter listed number next to name):");
+            for (File f: listOfFiles) {
+                String name = f.getName();
+                System.out.println(co + ": " + name.substring(0, name.indexOf(".")));
+                co++;
+            } 
+            System.out.print("Or make a new profile (enter 0): ");
+            int input = s.nextInt();
+            if (input == 0) {
+                System.out.print("Name your profile: ");
+                String name = s.next();
+                File dataFile = new File("data/" + name + ".json");
+                try {
+                    dataFile.createNewFile();
+                    fileName = dataFile.getName();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+            } else {
+                emptyProfile = false;
+                fileName = listOfFiles[input - 1].getName();
+            }
+        }
+        Controller c = new Controller(fileName);
+        if (!emptyProfile) c.loadData();
+        
         String command = "";
         while (!command.equals("exit")) {
             System.out.print("cmd# ");
-            command = s.nextLine();
+            command = s.next();
             processCommand(command, c);
         }
         s.close();

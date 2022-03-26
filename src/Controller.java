@@ -12,6 +12,10 @@ import org.json.simple.parser.JSONParser;
 import java.util.ArrayList;
 
 public class Controller {
+    private String fileName;
+    public Controller(String fileName) {
+        this.fileName = fileName;
+    }
 
     private static String getWord(String cmd, int wordNum) {
         String newStr = cmd;
@@ -247,7 +251,7 @@ public class Controller {
         logicalVolumes.put("groups", groups);
         logicalVolumes.put("uuids", uuids);
         try {
-            FileWriter file = new FileWriter("data.json");
+            FileWriter file = new FileWriter("data/" + fileName);
             file.write(data.toJSONString());
             file.close();
          } catch (IOException e) {
@@ -257,7 +261,7 @@ public class Controller {
 
     public void loadData() {
         JSONParser parser = new JSONParser();
-        try (FileReader r = new FileReader("data.json")) {
+        try (FileReader r = new FileReader("data/" + fileName)) {
             JSONObject data = (JSONObject) (parser.parse(r));
             JSONObject drives = (JSONObject) data.get("hardDrives");
             ArrayList<String> names = (ArrayList<String>) drives.get("names");
